@@ -1,15 +1,102 @@
 # Fixa
 Fixa (from Fix Arguments) is a Javascript Library to fix the number of arguments returned on callbacks.
+It's very useful to standardize callback responses between libraries, for example when using [Async](https://github.com/caolan/async).
 
-# Install
+## Install
 
-# Use
+For NodeJS, use npm:
 
-# Documentation
+```
+npm install --save fixa
+```
+
+## Use
+
+To use it just call `fixa(N)` of your original function, where N is the number of arguments that will sent to callback function.
+Fixa adds its methods to Function's prototype.
+
+If original function had to return more arguments than N, Fixa will only execute callback with the firsts N arguments.
+On the other hand, if the original function had to return less arguments than N, Fixa will return those arguments along
+will null values until complete N arguments.
+
+**Last argument must be the callback** where you expect a fixed N number of arguments.
+If you don't send a callback at the end it won't crash but the library will be useless.
 
 
+### Available methods:
 
-# License
+##### [function].fixa(N)(arg1[, arg2[, ...]], [callback]);
+Fix to N the number of arguments sent to the callback.
+N must be 0 or a positive integer.
+
+##### [function].fixArguments(N)(arg1[, arg2[, ...]], [callback]);
+Just a synonym of `fixa(N)` to make code more readable.
+
+##### [function].nosArgs(arg1[, arg2[, ...]], [callback]);
+Returns no arguments to the callback.
+Synonym of `fixa(0)` to make code more readable.
+
+##### [function].oneArg(arg1[, arg2[, ...]], [callback]);
+Returns no arguments to the callback.
+Synonym of `fixa(1)` to make code more readable.
+
+##### [function].twoArgs(arg1[, arg2[, ...]], [callback]);
+Returns no arguments to the callback.
+Synonym of `fixa(2)` to make code more readable.
+
+##### [function].threeArgs(arg1[, arg2[, ...]], [callback]);
+Returns no arguments to the callback.
+Synonym of `fixa(3)` to make code more readable.
+
+##### [function].fourArgs(arg1[, arg2[, ...]], [callback]);
+Returns no arguments to the callback.
+Synonym of `fixa(4)` to make code more readable.
+
+
+## Examples
+
+```
+// Sample functions
+function sampleFunction5Arguments(callback) {
+    return callback(1, 2, 3, 4, 5);
+}
+
+function sampleFunction2Arguments(a, b, callback) {
+    return callback(null, {
+        result : a + b
+    });
+}
+
+// Limiting arguments.
+sampleFunction5Arguments(function (one, two, three, four, five) {
+    console.log(one, two, three, four, five); // Prints: 1 2 3 4 5
+});
+
+sampleFunction5Arguments.fixa(2)(function (one, two, three, four, five) {
+    console.log(one, two, three, four, five); // Prints: 1 2 undefined undefined undefined
+});
+
+sampleFunction5Arguments.threeArgs(function (one, two, three, four, five) {
+    console.log(one, two, three, four, five); // Prints: 1 2 3 undefined undefined
+});
+
+
+// Adding arguments
+sampleFunction2Arguments(3, 4, function (one, two, three, four, five) {
+    console.log(one, two, three, four, five); // Prints: null {result : 7} undefined undefined undefined
+});
+
+// Adding arguments
+sampleFunction2Arguments.fixa(5)(3, 4, function (one, two, three, four, five) {
+    console.log(one, two, three, four, five); // Prints: null {result : 7} null null null
+});
+
+sampleFunction2Arguments.oneArg(3, 4, function (one, two, three, four, five) {
+    console.log(one, two, three, four, five); // Prints: null undefined undefined undefined undefined
+});
+```
+
+## License
 
 The MIT License (MIT)
 
