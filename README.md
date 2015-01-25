@@ -119,7 +119,7 @@ sampleFunction5Arguments.threeArgs(function(one, two, three, four, five) {
 
 
 // Adding arguments
-// Fix to 2 arguments.
+// Execute sample function normally.
 sampleFunction2Arguments(3, 4, function(one, two, three, four, five) {
     console.log(one, two, three, four, five);
     // Prints: null {result : 7} undefined undefined undefined
