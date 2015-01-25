@@ -2,9 +2,9 @@
   "name": "fixa",
   "version": "0.1.0",
   "description": "Fixa (from Fix Arguments) is a Javascript Library to fix the number of arguments returned on callbacks.",
-  "main": "index.js",
+  "main": "lib/fixa.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test/test-fixa.js"
   },
   "repository": {
     "type": "git",
