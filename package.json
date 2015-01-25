@@ -1,6 +1,6 @@
 {
   "name": "fixa",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Fixa (from Fix Arguments) is a Javascript Library to fix the number of arguments returned on callbacks.",
   "main": "lib/fixa.js",
   "scripts": {
