@@ -25,9 +25,17 @@ If you don't send a callback at the end it won't crash but the library will be u
 
 ### Available methods:
 
+**Fixa(callback, N)**
+
+Fix to N the number of arguments executed in the callback.
+N must be 0 or a positive integer.
+```
+Fixa(callback, N);
+```
+
 **fixa(N)**
 
-Fix to N the number of arguments sent to the callback.
+Fix to N the number of arguments executed in the callback.
 N must be 0 or a positive integer.
 ```
 [function].fixa(N)(arg1[, arg2[, ...]], callback);
@@ -85,7 +93,7 @@ Synonym of `fixa(4)` to make code more readable.
 ## Examples
 
 ```
-require("fixa");
+var Fixa = require("fixa");
 
 // Sample functions
 function sampleFunction5Arguments(callback) {
@@ -97,6 +105,7 @@ function sampleFunction2Arguments(a, b, callback) {
         result : a + b
     });
 }
+
 
 // Limiting arguments.
 // Execute sample function normally.
@@ -136,6 +145,15 @@ sampleFunction2Arguments.oneArg(3, 4, function(one, two, three, four, five) {
     console.log(one, two, three, four, five);
     // Prints: null undefined undefined undefined undefined
 });
+
+
+// Use the library. Useful when it can't be used from functions prototype.
+var callback = function(one, two, three, four, five) {
+    console.log(one, two, three, four, five);
+    // Prints: 1 2 undefined undefined undefined
+}
+
+sampleFunction5Arguments(Fixa(callback, 2));
 ```
 
 ## License
